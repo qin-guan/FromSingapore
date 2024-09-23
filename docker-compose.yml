@@ -1,0 +1,6 @@
+﻿services:
+  fromsingapore.webapi:
+    image: fromsingapore.webapi
+    build:
+      context: .
+      dockerfile: FromSingapore.WebApi/Dockerfile

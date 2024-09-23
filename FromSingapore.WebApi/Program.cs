@@ -1,4 +1,5 @@
 using FromSingapore.Core.Context;
+using FromSingapore.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 

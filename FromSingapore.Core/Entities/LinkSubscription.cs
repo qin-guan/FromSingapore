@@ -1,4 +1,4 @@
-namespace FromSingapore.Core.Context;
+namespace FromSingapore.Core.Entities;
 
 public class LinkSubscription : Subscription
 {

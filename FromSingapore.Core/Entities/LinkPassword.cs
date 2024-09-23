@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FromSingapore.Core.Context;
+namespace FromSingapore.Core.Entities;
 
 public class LinkPassword
 {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace FromSingapore.Core.Context;
+namespace FromSingapore.Core.Entities;
 
 [Index(nameof(DomainId), nameof(ShortCode), IsUnique = true)]
 public class Link

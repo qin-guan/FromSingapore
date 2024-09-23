@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace FromSingapore.Core.Context;
+namespace FromSingapore.Core.Entities;
 
 public class AppUser : IdentityUser<Guid>
 {

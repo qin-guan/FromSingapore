@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-
-namespace FromSingapore.Core.Context;
+namespace FromSingapore.Core.Entities;
 
 public class LinkVisitLimit
 {

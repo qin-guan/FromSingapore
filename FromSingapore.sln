@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FromSingapore.Core", "FromSingapore.Core\FromSingapore.Core.csproj", "{3CB4EA80-8C01-4939-9A9E-2513717827DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FromSingapore.Migrations", "FromSingapore.Migrations\FromSingapore.Migrations.csproj", "{A2621ECA-3FD9-4983-BFC8-2F52A33207DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,5 +33,13 @@ Global
 		{1A4CE2DE-9457-45F1-99DC-EF8CC7657312}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A4CE2DE-9457-45F1-99DC-EF8CC7657312}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A4CE2DE-9457-45F1-99DC-EF8CC7657312}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CB4EA80-8C01-4939-9A9E-2513717827DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CB4EA80-8C01-4939-9A9E-2513717827DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CB4EA80-8C01-4939-9A9E-2513717827DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CB4EA80-8C01-4939-9A9E-2513717827DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2621ECA-3FD9-4983-BFC8-2F52A33207DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2621ECA-3FD9-4983-BFC8-2F52A33207DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2621ECA-3FD9-4983-BFC8-2F52A33207DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2621ECA-3FD9-4983-BFC8-2F52A33207DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

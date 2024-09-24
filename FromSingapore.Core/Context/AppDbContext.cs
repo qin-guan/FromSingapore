@@ -46,6 +46,25 @@ public partial class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
         modelBuilder.Entity<SubscriptionPlan>()
             .UseTptMappingStrategy();
 
+        var fromSgDomain = new FreeDomain
+        {
+            Id = Guid.Parse("04569f15-7a77-4cf3-8477-6b37a1c1fe01"),
+            Name = "from.sg",
+            Description = "Free domain"
+        };
+
+        var normalLink = new Link
+        {
+            Id = Guid.Parse("8d3e3c94-a972-4a60-9f7f-def1ef1303aa"),
+            Title = "Normal link",
+            Description = "Normal link without any special restrictions",
+            ShortCode = "qg",
+            OriginalUri = new Uri("https://qinguan.me"),
+            IsBanned = false,
+            IsDisabled = false,
+            DomainId = fromSgDomain.Id
+        };
+
         OnModelCreatingPartial(modelBuilder);
     }
 

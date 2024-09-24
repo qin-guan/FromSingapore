@@ -12,14 +12,14 @@ public class Link
     public required string ShortCode { get; set; }
     public required Uri OriginalUri { get; set; }
     public required bool IsBanned { get; set; }
-    public required bool IsActive { get; set; }
+    public required bool IsDisabled { get; set; }
 
     public Guid? LinkVisitLimitId { get; set; }
     public LinkVisitLimit? LinkVisitLimit { get; set; }
 
     public Guid? LinkExpirationId { get; set; }
-    public LinkExpiration? LinkExiration { get; set; }
-    
+    public LinkExpiration? LinkExpiration { get; set; }
+
     public Guid? LinkPasswordId { get; set; }
     public LinkPassword? LinkPassword { get; set; }
 

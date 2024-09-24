@@ -3,8 +3,8 @@ using System;
 using FromSingapore.Core.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -18,27 +18,27 @@ namespace FromSingapore.Migrations.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.8")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("FromSingapore.Core.Context.AppRole", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.AppRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
@@ -49,58 +49,58 @@ namespace FromSingapore.Migrations.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.AppUser", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
@@ -114,19 +114,19 @@ namespace FromSingapore.Migrations.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.Domain", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.Domain", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -135,45 +135,45 @@ namespace FromSingapore.Migrations.Migrations
                     b.UseTptMappingStrategy();
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.Link", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.Link", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<Guid>("DomainId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
+                        .HasColumnType("char(36)");
 
                     b.Property<bool>("IsBanned")
-                        .HasColumnType("boolean");
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsDisabled")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<Guid?>("LinkExpirationId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<Guid?>("LinkPasswordId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<Guid?>("LinkVisitLimitId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("OriginalUri")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ShortCode")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -189,46 +189,46 @@ namespace FromSingapore.Migrations.Migrations
                     b.ToTable("Links");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.LinkExpiration", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.LinkExpiration", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
                     b.ToTable("LinkExpirations");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.LinkPassword", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.LinkPassword", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.ToTable("LinkPasswords");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.LinkVisit", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.LinkVisit", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<Guid>("LinkId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("VisitedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -237,34 +237,34 @@ namespace FromSingapore.Migrations.Migrations
                     b.ToTable("LinkVisits");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.LinkVisitLimit", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.LinkVisitLimit", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("Max")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("LinkVisitLimits");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.Subscription", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.Subscription", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<Guid>("AppUserId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -275,28 +275,28 @@ namespace FromSingapore.Migrations.Migrations
                     b.UseTptMappingStrategy();
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.SubscriptionPlan", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.SubscriptionPlan", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<bool>("BuiltIn")
-                        .HasColumnType("boolean");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<TimeSpan>("Duration")
-                        .HasColumnType("interval");
+                        .HasColumnType("time(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 
@@ -309,18 +309,18 @@ namespace FromSingapore.Migrations.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -333,18 +333,18 @@ namespace FromSingapore.Migrations.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -356,16 +356,16 @@ namespace FromSingapore.Migrations.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -377,10 +377,10 @@ namespace FromSingapore.Migrations.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -392,111 +392,111 @@ namespace FromSingapore.Migrations.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.FreeDomain", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.FreeDomain", b =>
                 {
-                    b.HasBaseType("FromSingapore.Core.Context.Domain");
+                    b.HasBaseType("FromSingapore.Core.Entities.Domain");
 
                     b.ToTable("FreeDomains");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.PaidDomain", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.PaidDomain", b =>
                 {
-                    b.HasBaseType("FromSingapore.Core.Context.Domain");
+                    b.HasBaseType("FromSingapore.Core.Entities.Domain");
 
                     b.Property<Guid>("DomainSubscriptionId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.HasIndex("DomainSubscriptionId");
 
                     b.ToTable("PaidDomains");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.DomainSubscription", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.DomainSubscription", b =>
                 {
-                    b.HasBaseType("FromSingapore.Core.Context.Subscription");
+                    b.HasBaseType("FromSingapore.Core.Entities.Subscription");
 
                     b.Property<Guid>("DomainSubscriptionPlanId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.HasIndex("DomainSubscriptionPlanId");
 
                     b.ToTable("DomainSubscriptions");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.LinkSubscription", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.LinkSubscription", b =>
                 {
-                    b.HasBaseType("FromSingapore.Core.Context.Subscription");
+                    b.HasBaseType("FromSingapore.Core.Entities.Subscription");
 
                     b.Property<Guid>("LinkSubscriptionPlanId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("char(36)");
 
                     b.HasIndex("LinkSubscriptionPlanId");
 
                     b.ToTable("LinkSubscriptions");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.DomainSubscriptionPlan", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.DomainSubscriptionPlan", b =>
                 {
-                    b.HasBaseType("FromSingapore.Core.Context.SubscriptionPlan");
+                    b.HasBaseType("FromSingapore.Core.Entities.SubscriptionPlan");
 
                     b.ToTable("DomainSubscriptionPlans");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.LinkSubscriptionPlan", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.LinkSubscriptionPlan", b =>
                 {
-                    b.HasBaseType("FromSingapore.Core.Context.SubscriptionPlan");
+                    b.HasBaseType("FromSingapore.Core.Entities.SubscriptionPlan");
 
                     b.ToTable("LinkSubscriptionPlans");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.Link", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.Link", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.Domain", "Domain")
+                    b.HasOne("FromSingapore.Core.Entities.Domain", "Domain")
                         .WithMany("Links")
                         .HasForeignKey("DomainId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FromSingapore.Core.Context.LinkExpiration", "LinkExiration")
+                    b.HasOne("FromSingapore.Core.Entities.LinkExpiration", "LinkExpiration")
                         .WithMany()
                         .HasForeignKey("LinkExpirationId");
 
-                    b.HasOne("FromSingapore.Core.Context.LinkPassword", "LinkPassword")
+                    b.HasOne("FromSingapore.Core.Entities.LinkPassword", "LinkPassword")
                         .WithMany()
                         .HasForeignKey("LinkPasswordId");
 
-                    b.HasOne("FromSingapore.Core.Context.LinkVisitLimit", "LinkVisitLimit")
+                    b.HasOne("FromSingapore.Core.Entities.LinkVisitLimit", "LinkVisitLimit")
                         .WithMany()
                         .HasForeignKey("LinkVisitLimitId");
 
                     b.Navigation("Domain");
 
-                    b.Navigation("LinkExiration");
+                    b.Navigation("LinkExpiration");
 
                     b.Navigation("LinkPassword");
 
                     b.Navigation("LinkVisitLimit");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.LinkVisit", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.LinkVisit", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.Link", "Link")
+                    b.HasOne("FromSingapore.Core.Entities.Link", "Link")
                         .WithMany()
                         .HasForeignKey("LinkId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -505,9 +505,9 @@ namespace FromSingapore.Migrations.Migrations
                     b.Navigation("Link");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.Subscription", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.Subscription", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.AppUser", "AppUser")
+                    b.HasOne("FromSingapore.Core.Entities.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -518,7 +518,7 @@ namespace FromSingapore.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.AppRole", null)
+                    b.HasOne("FromSingapore.Core.Entities.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -527,7 +527,7 @@ namespace FromSingapore.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.AppUser", null)
+                    b.HasOne("FromSingapore.Core.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -536,7 +536,7 @@ namespace FromSingapore.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.AppUser", null)
+                    b.HasOne("FromSingapore.Core.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -545,13 +545,13 @@ namespace FromSingapore.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.AppRole", null)
+                    b.HasOne("FromSingapore.Core.Entities.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FromSingapore.Core.Context.AppUser", null)
+                    b.HasOne("FromSingapore.Core.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -560,65 +560,65 @@ namespace FromSingapore.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.AppUser", null)
+                    b.HasOne("FromSingapore.Core.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.FreeDomain", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.FreeDomain", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.Domain", null)
+                    b.HasOne("FromSingapore.Core.Entities.Domain", null)
                         .WithOne()
-                        .HasForeignKey("FromSingapore.Core.Context.FreeDomain", "Id")
+                        .HasForeignKey("FromSingapore.Core.Entities.FreeDomain", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.PaidDomain", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.PaidDomain", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.DomainSubscription", "DomainSubscription")
+                    b.HasOne("FromSingapore.Core.Entities.DomainSubscription", "DomainSubscription")
                         .WithMany()
                         .HasForeignKey("DomainSubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FromSingapore.Core.Context.Domain", null)
+                    b.HasOne("FromSingapore.Core.Entities.Domain", null)
                         .WithOne()
-                        .HasForeignKey("FromSingapore.Core.Context.PaidDomain", "Id")
+                        .HasForeignKey("FromSingapore.Core.Entities.PaidDomain", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("DomainSubscription");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.DomainSubscription", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.DomainSubscription", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.DomainSubscriptionPlan", "DomainSubscriptionPlan")
+                    b.HasOne("FromSingapore.Core.Entities.DomainSubscriptionPlan", "DomainSubscriptionPlan")
                         .WithMany()
                         .HasForeignKey("DomainSubscriptionPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FromSingapore.Core.Context.Subscription", null)
+                    b.HasOne("FromSingapore.Core.Entities.Subscription", null)
                         .WithOne()
-                        .HasForeignKey("FromSingapore.Core.Context.DomainSubscription", "Id")
+                        .HasForeignKey("FromSingapore.Core.Entities.DomainSubscription", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("DomainSubscriptionPlan");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.LinkSubscription", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.LinkSubscription", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.Subscription", null)
+                    b.HasOne("FromSingapore.Core.Entities.Subscription", null)
                         .WithOne()
-                        .HasForeignKey("FromSingapore.Core.Context.LinkSubscription", "Id")
+                        .HasForeignKey("FromSingapore.Core.Entities.LinkSubscription", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FromSingapore.Core.Context.LinkSubscriptionPlan", "LinkSubscriptionPlan")
+                    b.HasOne("FromSingapore.Core.Entities.LinkSubscriptionPlan", "LinkSubscriptionPlan")
                         .WithMany()
                         .HasForeignKey("LinkSubscriptionPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -627,25 +627,25 @@ namespace FromSingapore.Migrations.Migrations
                     b.Navigation("LinkSubscriptionPlan");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.DomainSubscriptionPlan", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.DomainSubscriptionPlan", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.SubscriptionPlan", null)
+                    b.HasOne("FromSingapore.Core.Entities.SubscriptionPlan", null)
                         .WithOne()
-                        .HasForeignKey("FromSingapore.Core.Context.DomainSubscriptionPlan", "Id")
+                        .HasForeignKey("FromSingapore.Core.Entities.DomainSubscriptionPlan", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.LinkSubscriptionPlan", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.LinkSubscriptionPlan", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Context.SubscriptionPlan", null)
+                    b.HasOne("FromSingapore.Core.Entities.SubscriptionPlan", null)
                         .WithOne()
-                        .HasForeignKey("FromSingapore.Core.Context.LinkSubscriptionPlan", "Id")
+                        .HasForeignKey("FromSingapore.Core.Entities.LinkSubscriptionPlan", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Context.Domain", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.Domain", b =>
                 {
                     b.Navigation("Links");
                 });

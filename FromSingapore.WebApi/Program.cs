@@ -1,14 +1,13 @@
 using FromSingapore.Core.Context;
 using FromSingapore.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region Database
 
-var dataSourceBuilder = new NpgsqlDataSourceBuilder(builder.Configuration.GetConnectionString("Postgres"));
-var dataSource = dataSourceBuilder.Build();
+var connectionString = builder.Configuration.GetConnectionString("MySql");
+var serverVersion = new MySqlServerVersion(ServerVersion.AutoDetect(connectionString));
 
 builder.Services.AddDbContext<AppDbContext>(
     options =>
@@ -19,10 +18,11 @@ builder.Services.AddDbContext<AppDbContext>(
             options.EnableDetailedErrors();
         }
 
-        options.UseNpgsql(dataSource, npgsqlOptions =>
-        {
-            npgsqlOptions.MigrationsAssembly("FromSingapore.Migrations");
-        });
+        options.UseMySql(
+            connectionString,
+            serverVersion,
+            mysqlOptions => { mysqlOptions.MigrationsAssembly("FromSingapore.Migrations"); }
+        );
     }
 );
 
@@ -44,6 +44,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+await using var scope = app.Services.CreateAsyncScope();
+var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+await db.Database.MigrateAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

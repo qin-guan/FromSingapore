@@ -1,13 +1,19 @@
+using FastEndpoints;
+using FastEndpoints.ClientGen.Kiota;
+using FastEndpoints.Swagger;
 using FromSingapore.Core.Context;
 using FromSingapore.Core.Entities;
+using Kiota.Builder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddFastEndpoints();
+builder.Services.SwaggerDocument(options => { options.DocumentSettings = s => { s.DocumentName = "v1"; }; });
+
 #region Database
 
 var connectionString = builder.Configuration.GetConnectionString("MySql");
-var serverVersion = new MySqlServerVersion(ServerVersion.AutoDetect(connectionString));
 
 builder.Services.AddDbContext<AppDbContext>(
     options =>
@@ -20,7 +26,7 @@ builder.Services.AddDbContext<AppDbContext>(
 
         options.UseMySql(
             connectionString,
-            serverVersion,
+            new MySqlServerVersion(ServerVersion.AutoDetect(connectionString)),
             mysqlOptions => { mysqlOptions.MigrationsAssembly("FromSingapore.Migrations"); }
         );
     }
@@ -33,7 +39,8 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
-builder.Services.AddIdentityApiEndpoints<AppUser>()
+builder.Services
+    .AddIdentityApiEndpoints<AppUser>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 #endregion
@@ -45,10 +52,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-await using var scope = app.Services.CreateAsyncScope();
-var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-await db.Database.MigrateAsync();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -57,6 +60,18 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseFastEndpoints();
+
+await app.GenerateApiClientsAndExitAsync(c =>
+{
+    c.SwaggerDocumentName = "v1";
+    c.Language = GenerationLanguage.TypeScript;
+    c.OutputPath = Path.Combine(app.Environment.ContentRootPath, "../FromSingapore.WebApp", "api");
+});
+
+await using var scope = app.Services.CreateAsyncScope();
+var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+await db.Database.MigrateAsync();
 
 app.MapIdentityApi<AppUser>();
 

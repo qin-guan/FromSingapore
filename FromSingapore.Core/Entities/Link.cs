@@ -26,5 +26,8 @@ public class Link
     public Guid DomainId { get; set; }
     public Domain Domain { get; set; }
 
+    public Guid AppUserId { get; set; }
+    public AppUser AppUser { get; set; }
+
     public ICollection<LinkVisit> LinkVisits = [];
 }

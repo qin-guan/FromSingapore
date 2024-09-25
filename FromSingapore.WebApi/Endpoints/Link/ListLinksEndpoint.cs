@@ -1,6 +1,8 @@
 using System.Text.Json;
 using FastEndpoints;
 using FromSingapore.Core.Context;
+using FromSingapore.WebApi.Extensions;
+using FromSingapore.WebApi.Mappers;
 using Microsoft.EntityFrameworkCore;
 
 namespace FromSingapore.WebApi.Endpoints.Link;
@@ -14,6 +16,13 @@ public class ListLinksEndpoint(AppDbContext dbContext) : EndpointWithoutRequest<
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await SendStringAsync(JsonSerializer.Serialize(HttpContext.User.Identities), cancellation: ct);
+        var user = await dbContext.Users
+            .WhereUserFromIdentity(HttpContext.User.Identity)
+            .Include(u => u.Links)
+            .SingleOrDefaultAsync(cancellationToken: ct);
+
+        ArgumentNullException.ThrowIfNull(user);
+
+        await SendAsync(new ListLinksResponse(user.Links.ToDto()), cancellation: ct);
     }
 }

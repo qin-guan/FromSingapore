@@ -6,6 +6,8 @@ public abstract class Subscription
 
     public required DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
+    
+    public bool IsValid => DateTime.Now >= StartDate && DateTime.Now <= EndDate;
 
     public Guid AppUserId { get; set; }
     public AppUser AppUser { get; set; }

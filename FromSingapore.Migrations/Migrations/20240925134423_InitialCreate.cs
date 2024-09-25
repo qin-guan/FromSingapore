@@ -320,11 +320,18 @@ namespace FromSingapore.Migrations.Migrations
                     LinkVisitLimitId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     LinkExpirationId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     LinkPasswordId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
-                    DomainId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    DomainId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    AppUserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Links", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Links_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Links_Domains_DomainId",
                         column: x => x.DomainId,
@@ -480,6 +487,16 @@ namespace FromSingapore.Migrations.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.InsertData(
+                table: "Domains",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[] { new Guid("04569f15-7a77-4cf3-8477-6b37a1c1fe01"), "Free domain", "from.sg" });
+
+            migrationBuilder.InsertData(
+                table: "FreeDomains",
+                column: "Id",
+                value: new Guid("04569f15-7a77-4cf3-8477-6b37a1c1fe01"));
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -521,6 +538,11 @@ namespace FromSingapore.Migrations.Migrations
                 name: "IX_DomainSubscriptions_DomainSubscriptionPlanId",
                 table: "DomainSubscriptions",
                 column: "DomainSubscriptionPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Links_AppUserId",
+                table: "Links",
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Links_DomainId_ShortCode",

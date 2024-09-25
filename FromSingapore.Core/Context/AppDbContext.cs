@@ -53,17 +53,8 @@ public partial class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
             Description = "Free domain"
         };
 
-        var normalLink = new Link
-        {
-            Id = Guid.Parse("8d3e3c94-a972-4a60-9f7f-def1ef1303aa"),
-            Title = "Normal link",
-            Description = "Normal link without any special restrictions",
-            ShortCode = "qg",
-            OriginalUri = new Uri("https://qinguan.me"),
-            IsBanned = false,
-            IsDisabled = false,
-            DomainId = fromSgDomain.Id
-        };
+        modelBuilder.Entity<FreeDomain>()
+            .HasData(fromSgDomain);
 
         OnModelCreatingPartial(modelBuilder);
     }

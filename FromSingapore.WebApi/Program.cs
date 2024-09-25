@@ -5,9 +5,14 @@ using FromSingapore.Core.Context;
 using FromSingapore.Core.Entities;
 using Kiota.Builder;
 using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
+using Polly;
+using Polly.Registry;
+using Polly.Retry;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options => { options.AddDefaultPolicy(policy => { }); });
 builder.Services.AddFastEndpoints();
 builder.Services.SwaggerDocument(options => { options.DocumentSettings = s => { s.DocumentName = "v1"; }; });
 
@@ -16,7 +21,7 @@ builder.Services.SwaggerDocument(options => { options.DocumentSettings = s => { 
 var connectionString = builder.Configuration.GetConnectionString("MySql");
 
 builder.Services.AddDbContext<AppDbContext>(
-    options =>
+    (options) =>
     {
         if (builder.Environment.IsDevelopment())
         {
@@ -26,8 +31,12 @@ builder.Services.AddDbContext<AppDbContext>(
 
         options.UseMySql(
             connectionString,
-            new MySqlServerVersion(ServerVersion.AutoDetect(connectionString)),
-            mysqlOptions => { mysqlOptions.MigrationsAssembly("FromSingapore.Migrations"); }
+            new MySqlServerVersion(MySqlServerVersion.LatestSupportedServerVersion),
+            mysqlOptions =>
+            {
+                mysqlOptions.MigrationsAssembly("FromSingapore.Migrations");
+                mysqlOptions.EnableRetryOnFailure();
+            }
         );
     }
 );
@@ -55,24 +64,51 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors(options =>
+    {
+        options
+            .WithOrigins(
+                "http://localhost:3000",
+                "https://localhost:3000"
+            )
+            .AllowCredentials()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+if (app.Environment.IsProduction())
+{
+    app.UseHttpsRedirection();
+    app.UseCors(options =>
+    {
+        options
+            .WithOrigins(
+                "https://from.sg"
+            )
+            .AllowCredentials()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+}
+
 app.UseFastEndpoints();
+
+app.MapIdentityApi<AppUser>();
 
 await app.GenerateApiClientsAndExitAsync(c =>
 {
     c.SwaggerDocumentName = "v1";
     c.Language = GenerationLanguage.TypeScript;
+    c.CleanOutput = true;
     c.OutputPath = Path.Combine(app.Environment.ContentRootPath, "../FromSingapore.WebApp", "api");
 });
 
 await using var scope = app.Services.CreateAsyncScope();
 var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 await db.Database.MigrateAsync();
-
-app.MapIdentityApi<AppUser>();
 
 app.Run();

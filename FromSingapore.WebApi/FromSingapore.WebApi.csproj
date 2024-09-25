@@ -18,7 +18,9 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Polly.Core" Version="8.4.1" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2"/>
+        <PackageReference Include="Riok.Mapperly" Version="3.6.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.0"/>
     </ItemGroup>
 
@@ -31,6 +33,12 @@
     <ItemGroup>
         <ProjectReference Include="..\FromSingapore.Core\FromSingapore.Core.csproj"/>
         <ProjectReference Include="..\FromSingapore.Migrations\FromSingapore.Migrations.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Polly.Extensions">
+        <HintPath>..\..\..\..\.nuget\packages\polly.extensions\8.4.1\lib\net8.0\Polly.Extensions.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FromSingapore.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240924053101_InitialCreate")]
+    [Migration("20240925134423_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -144,6 +144,9 @@ namespace FromSingapore.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -179,6 +182,8 @@ namespace FromSingapore.Migrations.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("LinkExpirationId");
 
@@ -416,6 +421,14 @@ namespace FromSingapore.Migrations.Migrations
                     b.HasBaseType("FromSingapore.Core.Entities.Domain");
 
                     b.ToTable("FreeDomains");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("04569f15-7a77-4cf3-8477-6b37a1c1fe01"),
+                            Description = "Free domain",
+                            Name = "from.sg"
+                        });
                 });
 
             modelBuilder.Entity("FromSingapore.Core.Entities.PaidDomain", b =>
@@ -470,6 +483,12 @@ namespace FromSingapore.Migrations.Migrations
 
             modelBuilder.Entity("FromSingapore.Core.Entities.Link", b =>
                 {
+                    b.HasOne("FromSingapore.Core.Entities.AppUser", "AppUser")
+                        .WithMany("Links")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FromSingapore.Core.Entities.Domain", "Domain")
                         .WithMany("Links")
                         .HasForeignKey("DomainId")
@@ -488,6 +507,8 @@ namespace FromSingapore.Migrations.Migrations
                         .WithMany()
                         .HasForeignKey("LinkVisitLimitId");
 
+                    b.Navigation("AppUser");
+
                     b.Navigation("Domain");
 
                     b.Navigation("LinkExpiration");
@@ -500,7 +521,7 @@ namespace FromSingapore.Migrations.Migrations
             modelBuilder.Entity("FromSingapore.Core.Entities.LinkVisit", b =>
                 {
                     b.HasOne("FromSingapore.Core.Entities.Link", "Link")
-                        .WithMany()
+                        .WithMany("LinkVisits")
                         .HasForeignKey("LinkId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -599,7 +620,7 @@ namespace FromSingapore.Migrations.Migrations
             modelBuilder.Entity("FromSingapore.Core.Entities.DomainSubscription", b =>
                 {
                     b.HasOne("FromSingapore.Core.Entities.DomainSubscriptionPlan", "DomainSubscriptionPlan")
-                        .WithMany()
+                        .WithMany("DomainSubscriptions")
                         .HasForeignKey("DomainSubscriptionPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -622,7 +643,7 @@ namespace FromSingapore.Migrations.Migrations
                         .IsRequired();
 
                     b.HasOne("FromSingapore.Core.Entities.LinkSubscriptionPlan", "LinkSubscriptionPlan")
-                        .WithMany()
+                        .WithMany("LinkSubscriptions")
                         .HasForeignKey("LinkSubscriptionPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -648,9 +669,29 @@ namespace FromSingapore.Migrations.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("FromSingapore.Core.Entities.AppUser", b =>
+                {
+                    b.Navigation("Links");
+                });
+
             modelBuilder.Entity("FromSingapore.Core.Entities.Domain", b =>
                 {
                     b.Navigation("Links");
+                });
+
+            modelBuilder.Entity("FromSingapore.Core.Entities.Link", b =>
+                {
+                    b.Navigation("LinkVisits");
+                });
+
+            modelBuilder.Entity("FromSingapore.Core.Entities.DomainSubscriptionPlan", b =>
+                {
+                    b.Navigation("DomainSubscriptions");
+                });
+
+            modelBuilder.Entity("FromSingapore.Core.Entities.LinkSubscriptionPlan", b =>
+                {
+                    b.Navigation("LinkSubscriptions");
                 });
 #pragma warning restore 612, 618
         }

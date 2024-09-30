@@ -25,11 +25,56 @@ export function createFromSingaporeWebApiDtosLinkDtoFromDiscriminatorValue(parse
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {FromSingaporeWebApiDtosPlanDto_PlanFeaturesDto}
+ */
+// @ts-ignore
+export function createFromSingaporeWebApiDtosPlanDto_PlanFeaturesDtoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFromSingaporeWebApiDtosPlanDto_PlanFeaturesDto;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {FromSingaporeWebApiDtosPlanDto}
+ */
+// @ts-ignore
+export function createFromSingaporeWebApiDtosPlanDtoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFromSingaporeWebApiDtosPlanDto;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {FromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto}
+ */
+// @ts-ignore
+export function createFromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDtoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {FromSingaporeWebApiDtosSubscriptionDto}
+ */
+// @ts-ignore
+export function createFromSingaporeWebApiDtosSubscriptionDtoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFromSingaporeWebApiDtosSubscriptionDto;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {FromSingaporeWebApiEndpointsDomainListDomainsResponse}
  */
 // @ts-ignore
 export function createFromSingaporeWebApiEndpointsDomainListDomainsResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoFromSingaporeWebApiEndpointsDomainListDomainsResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {FromSingaporeWebApiEndpointsDomainQueryDomainsResponse}
+ */
+// @ts-ignore
+export function createFromSingaporeWebApiEndpointsDomainQueryDomainsResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFromSingaporeWebApiEndpointsDomainQueryDomainsResponse;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -48,6 +93,33 @@ export function createFromSingaporeWebApiEndpointsLinkCreateLinkRequestFromDiscr
 // @ts-ignore
 export function createFromSingaporeWebApiEndpointsLinkListLinksResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoFromSingaporeWebApiEndpointsLinkListLinksResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {FromSingaporeWebApiEndpointsPlanListPlansResponse}
+ */
+// @ts-ignore
+export function createFromSingaporeWebApiEndpointsPlanListPlansResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFromSingaporeWebApiEndpointsPlanListPlansResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {FromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse}
+ */
+// @ts-ignore
+export function createFromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {FromSingaporeWebApiExtensionsIdentityInfoResponse}
+ */
+// @ts-ignore
+export function createFromSingaporeWebApiExtensionsIdentityInfoResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFromSingaporeWebApiExtensionsIdentityInfoResponse;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -93,15 +165,6 @@ export function createMicrosoftAspNetCoreIdentityDataForgotPasswordRequestFromDi
 // @ts-ignore
 export function createMicrosoftAspNetCoreIdentityDataInfoRequestFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoMicrosoftAspNetCoreIdentityDataInfoRequest;
-}
-/**
- * Creates a new instance of the appropriate class based on discriminator value
- * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns {MicrosoftAspNetCoreIdentityDataInfoResponse}
- */
-// @ts-ignore
-export function createMicrosoftAspNetCoreIdentityDataInfoResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoMicrosoftAspNetCoreIdentityDataInfoResponse;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -210,9 +273,75 @@ export function deserializeIntoFromSingaporeWebApiDtosLinkDto(fromSingaporeWebAp
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoFromSingaporeWebApiDtosPlanDto(fromSingaporeWebApiDtosPlanDto: Partial<FromSingaporeWebApiDtosPlanDto> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "features": n => { fromSingaporeWebApiDtosPlanDto.features = n.getObjectValue<FromSingaporeWebApiDtosPlanDto_PlanFeaturesDto>(createFromSingaporeWebApiDtosPlanDto_PlanFeaturesDtoFromDiscriminatorValue); },
+        "id": n => { fromSingaporeWebApiDtosPlanDto.id = n.getStringValue(); },
+        "name": n => { fromSingaporeWebApiDtosPlanDto.name = n.getStringValue(); },
+        "priceAmount": n => { fromSingaporeWebApiDtosPlanDto.priceAmount = n.getNumberValue(); },
+        "priceCurrency": n => { fromSingaporeWebApiDtosPlanDto.priceCurrency = n.getStringValue(); },
+        "stripePriceId": n => { fromSingaporeWebApiDtosPlanDto.stripePriceId = n.getStringValue(); },
+        "stripeProductId": n => { fromSingaporeWebApiDtosPlanDto.stripeProductId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFromSingaporeWebApiDtosPlanDto_PlanFeaturesDto(fromSingaporeWebApiDtosPlanDto_PlanFeaturesDto: Partial<FromSingaporeWebApiDtosPlanDto_PlanFeaturesDto> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "domainsAvailable": n => { fromSingaporeWebApiDtosPlanDto_PlanFeaturesDto.domainsAvailable = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFromSingaporeWebApiDtosSubscriptionDto(fromSingaporeWebApiDtosSubscriptionDto: Partial<FromSingaporeWebApiDtosSubscriptionDto> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "endDate": n => { fromSingaporeWebApiDtosSubscriptionDto.endDate = n.getDateValue(); },
+        "features": n => { fromSingaporeWebApiDtosSubscriptionDto.features = n.getObjectValue<FromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto>(createFromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDtoFromDiscriminatorValue); },
+        "id": n => { fromSingaporeWebApiDtosSubscriptionDto.id = n.getStringValue(); },
+        "isActive": n => { fromSingaporeWebApiDtosSubscriptionDto.isActive = n.getBooleanValue(); },
+        "name": n => { fromSingaporeWebApiDtosSubscriptionDto.name = n.getStringValue(); },
+        "priceAmount": n => { fromSingaporeWebApiDtosSubscriptionDto.priceAmount = n.getNumberValue(); },
+        "priceCurrency": n => { fromSingaporeWebApiDtosSubscriptionDto.priceCurrency = n.getStringValue(); },
+        "startDate": n => { fromSingaporeWebApiDtosSubscriptionDto.startDate = n.getDateValue(); },
+        "stripePriceId": n => { fromSingaporeWebApiDtosSubscriptionDto.stripePriceId = n.getStringValue(); },
+        "stripeProductId": n => { fromSingaporeWebApiDtosSubscriptionDto.stripeProductId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto(fromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto: Partial<FromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "domainsAvailable": n => { fromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto.domainsAvailable = n.getNumberValue(); },
+        "domainsRemaining": n => { fromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto.domainsRemaining = n.getNumberValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoFromSingaporeWebApiEndpointsDomainListDomainsResponse(fromSingaporeWebApiEndpointsDomainListDomainsResponse: Partial<FromSingaporeWebApiEndpointsDomainListDomainsResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "domains": n => { fromSingaporeWebApiEndpointsDomainListDomainsResponse.domains = n.getCollectionOfObjectValues<FromSingaporeWebApiDtosDomainDto>(createFromSingaporeWebApiDtosDomainDtoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFromSingaporeWebApiEndpointsDomainQueryDomainsResponse(fromSingaporeWebApiEndpointsDomainQueryDomainsResponse: Partial<FromSingaporeWebApiEndpointsDomainQueryDomainsResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "available": n => { fromSingaporeWebApiEndpointsDomainQueryDomainsResponse.available = n.getBooleanValue(); },
     }
 }
 /**
@@ -237,6 +366,38 @@ export function deserializeIntoFromSingaporeWebApiEndpointsLinkCreateLinkRequest
 export function deserializeIntoFromSingaporeWebApiEndpointsLinkListLinksResponse(fromSingaporeWebApiEndpointsLinkListLinksResponse: Partial<FromSingaporeWebApiEndpointsLinkListLinksResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "links": n => { fromSingaporeWebApiEndpointsLinkListLinksResponse.links = n.getCollectionOfObjectValues<FromSingaporeWebApiDtosLinkDto>(createFromSingaporeWebApiDtosLinkDtoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFromSingaporeWebApiEndpointsPlanListPlansResponse(fromSingaporeWebApiEndpointsPlanListPlansResponse: Partial<FromSingaporeWebApiEndpointsPlanListPlansResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "plans": n => { fromSingaporeWebApiEndpointsPlanListPlansResponse.plans = n.getCollectionOfObjectValues<FromSingaporeWebApiDtosPlanDto>(createFromSingaporeWebApiDtosPlanDtoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse(fromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse: Partial<FromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "subscription": n => { fromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse.subscription = n.getObjectValue<FromSingaporeWebApiDtosSubscriptionDto>(createFromSingaporeWebApiDtosSubscriptionDtoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFromSingaporeWebApiExtensionsIdentityInfoResponse(fromSingaporeWebApiExtensionsIdentityInfoResponse: Partial<FromSingaporeWebApiExtensionsIdentityInfoResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "email": n => { fromSingaporeWebApiExtensionsIdentityInfoResponse.email = n.getStringValue(); },
+        "id": n => { fromSingaporeWebApiExtensionsIdentityInfoResponse.id = n.getStringValue(); },
+        "isEmailConfirmed": n => { fromSingaporeWebApiExtensionsIdentityInfoResponse.isEmailConfirmed = n.getBooleanValue(); },
     }
 }
 /**
@@ -292,17 +453,6 @@ export function deserializeIntoMicrosoftAspNetCoreIdentityDataInfoRequest(micros
         "newEmail": n => { microsoftAspNetCoreIdentityDataInfoRequest.newEmail = n.getStringValue(); },
         "newPassword": n => { microsoftAspNetCoreIdentityDataInfoRequest.newPassword = n.getStringValue(); },
         "oldPassword": n => { microsoftAspNetCoreIdentityDataInfoRequest.oldPassword = n.getStringValue(); },
-    }
-}
-/**
- * The deserialization information for the current model
- * @returns {Record<string, (node: ParseNode) => void>}
- */
-// @ts-ignore
-export function deserializeIntoMicrosoftAspNetCoreIdentityDataInfoResponse(microsoftAspNetCoreIdentityDataInfoResponse: Partial<MicrosoftAspNetCoreIdentityDataInfoResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
-    return {
-        "email": n => { microsoftAspNetCoreIdentityDataInfoResponse.email = n.getStringValue(); },
-        "isEmailConfirmed": n => { microsoftAspNetCoreIdentityDataInfoResponse.isEmailConfirmed = n.getBooleanValue(); },
     }
 }
 /**
@@ -455,11 +605,105 @@ export interface FromSingaporeWebApiDtosLinkDto extends Parsable {
      */
     title?: string;
 }
+export interface FromSingaporeWebApiDtosPlanDto extends Parsable {
+    /**
+     * The features property
+     */
+    features?: FromSingaporeWebApiDtosPlanDto_PlanFeaturesDto;
+    /**
+     * The id property
+     */
+    id?: string;
+    /**
+     * The name property
+     */
+    name?: string;
+    /**
+     * The priceAmount property
+     */
+    priceAmount?: number;
+    /**
+     * The priceCurrency property
+     */
+    priceCurrency?: string;
+    /**
+     * The stripePriceId property
+     */
+    stripePriceId?: string;
+    /**
+     * The stripeProductId property
+     */
+    stripeProductId?: string;
+}
+export interface FromSingaporeWebApiDtosPlanDto_PlanFeaturesDto extends Parsable {
+    /**
+     * The domainsAvailable property
+     */
+    domainsAvailable?: number;
+}
+export interface FromSingaporeWebApiDtosSubscriptionDto extends Parsable {
+    /**
+     * The endDate property
+     */
+    endDate?: Date;
+    /**
+     * The features property
+     */
+    features?: FromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto;
+    /**
+     * The id property
+     */
+    id?: string;
+    /**
+     * The isActive property
+     */
+    isActive?: boolean;
+    /**
+     * The name property
+     */
+    name?: string;
+    /**
+     * The priceAmount property
+     */
+    priceAmount?: number;
+    /**
+     * The priceCurrency property
+     */
+    priceCurrency?: string;
+    /**
+     * The startDate property
+     */
+    startDate?: Date;
+    /**
+     * The stripePriceId property
+     */
+    stripePriceId?: string;
+    /**
+     * The stripeProductId property
+     */
+    stripeProductId?: string;
+}
+export interface FromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto extends Parsable {
+    /**
+     * The domainsAvailable property
+     */
+    domainsAvailable?: number;
+    /**
+     * The domainsRemaining property
+     */
+    domainsRemaining?: number;
+}
 export interface FromSingaporeWebApiEndpointsDomainListDomainsResponse extends Parsable {
     /**
      * The domains property
      */
     domains?: FromSingaporeWebApiDtosDomainDto[];
+}
+export interface FromSingaporeWebApiEndpointsDomainQueryDomainsResponse extends Parsable {
+    /**
+     * The available property
+     */
+    available?: boolean;
 }
 export interface FromSingaporeWebApiEndpointsLinkCreateLinkRequest extends Parsable {
     /**
@@ -488,6 +732,32 @@ export interface FromSingaporeWebApiEndpointsLinkListLinksResponse extends Parsa
      * The links property
      */
     links?: FromSingaporeWebApiDtosLinkDto[];
+}
+export interface FromSingaporeWebApiEndpointsPlanListPlansResponse extends Parsable {
+    /**
+     * The plans property
+     */
+    plans?: FromSingaporeWebApiDtosPlanDto[];
+}
+export interface FromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse extends Parsable {
+    /**
+     * The subscription property
+     */
+    subscription?: FromSingaporeWebApiDtosSubscriptionDto;
+}
+export interface FromSingaporeWebApiExtensionsIdentityInfoResponse extends Parsable {
+    /**
+     * The email property
+     */
+    email?: string;
+    /**
+     * The id property
+     */
+    id?: string;
+    /**
+     * The isEmailConfirmed property
+     */
+    isEmailConfirmed?: boolean;
 }
 export interface MicrosoftAspNetCoreAuthenticationBearerTokenAccessTokenResponse extends Parsable {
     /**
@@ -538,16 +808,6 @@ export interface MicrosoftAspNetCoreIdentityDataInfoRequest extends Parsable {
      * The oldPassword property
      */
     oldPassword?: string;
-}
-export interface MicrosoftAspNetCoreIdentityDataInfoResponse extends Parsable {
-    /**
-     * The email property
-     */
-    email?: string;
-    /**
-     * The isEmailConfirmed property
-     */
-    isEmailConfirmed?: boolean;
 }
 export interface MicrosoftAspNetCoreIdentityDataLoginRequest extends Parsable {
     /**
@@ -704,8 +964,64 @@ export function serializeFromSingaporeWebApiDtosLinkDto(writer: SerializationWri
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
+export function serializeFromSingaporeWebApiDtosPlanDto(writer: SerializationWriter, fromSingaporeWebApiDtosPlanDto: Partial<FromSingaporeWebApiDtosPlanDto> | undefined = {}) : void {
+    writer.writeObjectValue<FromSingaporeWebApiDtosPlanDto_PlanFeaturesDto>("features", fromSingaporeWebApiDtosPlanDto.features, serializeFromSingaporeWebApiDtosPlanDto_PlanFeaturesDto);
+    writer.writeStringValue("id", fromSingaporeWebApiDtosPlanDto.id);
+    writer.writeStringValue("name", fromSingaporeWebApiDtosPlanDto.name);
+    writer.writeNumberValue("priceAmount", fromSingaporeWebApiDtosPlanDto.priceAmount);
+    writer.writeStringValue("priceCurrency", fromSingaporeWebApiDtosPlanDto.priceCurrency);
+    writer.writeStringValue("stripePriceId", fromSingaporeWebApiDtosPlanDto.stripePriceId);
+    writer.writeStringValue("stripeProductId", fromSingaporeWebApiDtosPlanDto.stripeProductId);
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFromSingaporeWebApiDtosPlanDto_PlanFeaturesDto(writer: SerializationWriter, fromSingaporeWebApiDtosPlanDto_PlanFeaturesDto: Partial<FromSingaporeWebApiDtosPlanDto_PlanFeaturesDto> | undefined = {}) : void {
+    writer.writeNumberValue("domainsAvailable", fromSingaporeWebApiDtosPlanDto_PlanFeaturesDto.domainsAvailable);
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFromSingaporeWebApiDtosSubscriptionDto(writer: SerializationWriter, fromSingaporeWebApiDtosSubscriptionDto: Partial<FromSingaporeWebApiDtosSubscriptionDto> | undefined = {}) : void {
+    writer.writeDateValue("endDate", fromSingaporeWebApiDtosSubscriptionDto.endDate);
+    writer.writeObjectValue<FromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto>("features", fromSingaporeWebApiDtosSubscriptionDto.features, serializeFromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto);
+    writer.writeStringValue("id", fromSingaporeWebApiDtosSubscriptionDto.id);
+    writer.writeBooleanValue("isActive", fromSingaporeWebApiDtosSubscriptionDto.isActive);
+    writer.writeStringValue("name", fromSingaporeWebApiDtosSubscriptionDto.name);
+    writer.writeNumberValue("priceAmount", fromSingaporeWebApiDtosSubscriptionDto.priceAmount);
+    writer.writeStringValue("priceCurrency", fromSingaporeWebApiDtosSubscriptionDto.priceCurrency);
+    writer.writeDateValue("startDate", fromSingaporeWebApiDtosSubscriptionDto.startDate);
+    writer.writeStringValue("stripePriceId", fromSingaporeWebApiDtosSubscriptionDto.stripePriceId);
+    writer.writeStringValue("stripeProductId", fromSingaporeWebApiDtosSubscriptionDto.stripeProductId);
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto(writer: SerializationWriter, fromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto: Partial<FromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto> | undefined = {}) : void {
+    writer.writeNumberValue("domainsAvailable", fromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto.domainsAvailable);
+    writer.writeNumberValue("domainsRemaining", fromSingaporeWebApiDtosSubscriptionDto_PlanFeaturesDto.domainsRemaining);
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
 export function serializeFromSingaporeWebApiEndpointsDomainListDomainsResponse(writer: SerializationWriter, fromSingaporeWebApiEndpointsDomainListDomainsResponse: Partial<FromSingaporeWebApiEndpointsDomainListDomainsResponse> | undefined = {}) : void {
     writer.writeCollectionOfObjectValues<FromSingaporeWebApiDtosDomainDto>("domains", fromSingaporeWebApiEndpointsDomainListDomainsResponse.domains, serializeFromSingaporeWebApiDtosDomainDto);
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFromSingaporeWebApiEndpointsDomainQueryDomainsResponse(writer: SerializationWriter, fromSingaporeWebApiEndpointsDomainQueryDomainsResponse: Partial<FromSingaporeWebApiEndpointsDomainQueryDomainsResponse> | undefined = {}) : void {
+    writer.writeBooleanValue("available", fromSingaporeWebApiEndpointsDomainQueryDomainsResponse.available);
 }
 /**
  * Serializes information the current object
@@ -726,6 +1042,32 @@ export function serializeFromSingaporeWebApiEndpointsLinkCreateLinkRequest(write
 // @ts-ignore
 export function serializeFromSingaporeWebApiEndpointsLinkListLinksResponse(writer: SerializationWriter, fromSingaporeWebApiEndpointsLinkListLinksResponse: Partial<FromSingaporeWebApiEndpointsLinkListLinksResponse> | undefined = {}) : void {
     writer.writeCollectionOfObjectValues<FromSingaporeWebApiDtosLinkDto>("links", fromSingaporeWebApiEndpointsLinkListLinksResponse.links, serializeFromSingaporeWebApiDtosLinkDto);
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFromSingaporeWebApiEndpointsPlanListPlansResponse(writer: SerializationWriter, fromSingaporeWebApiEndpointsPlanListPlansResponse: Partial<FromSingaporeWebApiEndpointsPlanListPlansResponse> | undefined = {}) : void {
+    writer.writeCollectionOfObjectValues<FromSingaporeWebApiDtosPlanDto>("plans", fromSingaporeWebApiEndpointsPlanListPlansResponse.plans, serializeFromSingaporeWebApiDtosPlanDto);
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse(writer: SerializationWriter, fromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse: Partial<FromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse> | undefined = {}) : void {
+    writer.writeObjectValue<FromSingaporeWebApiDtosSubscriptionDto>("subscription", fromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse.subscription, serializeFromSingaporeWebApiDtosSubscriptionDto);
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFromSingaporeWebApiExtensionsIdentityInfoResponse(writer: SerializationWriter, fromSingaporeWebApiExtensionsIdentityInfoResponse: Partial<FromSingaporeWebApiExtensionsIdentityInfoResponse> | undefined = {}) : void {
+    writer.writeStringValue("email", fromSingaporeWebApiExtensionsIdentityInfoResponse.email);
+    writer.writeStringValue("id", fromSingaporeWebApiExtensionsIdentityInfoResponse.id);
+    writer.writeBooleanValue("isEmailConfirmed", fromSingaporeWebApiExtensionsIdentityInfoResponse.isEmailConfirmed);
 }
 /**
  * Serializes information the current object
@@ -772,15 +1114,6 @@ export function serializeMicrosoftAspNetCoreIdentityDataInfoRequest(writer: Seri
     writer.writeStringValue("newEmail", microsoftAspNetCoreIdentityDataInfoRequest.newEmail);
     writer.writeStringValue("newPassword", microsoftAspNetCoreIdentityDataInfoRequest.newPassword);
     writer.writeStringValue("oldPassword", microsoftAspNetCoreIdentityDataInfoRequest.oldPassword);
-}
-/**
- * Serializes information the current object
- * @param writer Serialization writer to use to serialize this model
- */
-// @ts-ignore
-export function serializeMicrosoftAspNetCoreIdentityDataInfoResponse(writer: SerializationWriter, microsoftAspNetCoreIdentityDataInfoResponse: Partial<MicrosoftAspNetCoreIdentityDataInfoResponse> | undefined = {}) : void {
-    writer.writeStringValue("email", microsoftAspNetCoreIdentityDataInfoResponse.email);
-    writer.writeBooleanValue("isEmailConfirmed", microsoftAspNetCoreIdentityDataInfoResponse.isEmailConfirmed);
 }
 /**
  * Serializes information the current object

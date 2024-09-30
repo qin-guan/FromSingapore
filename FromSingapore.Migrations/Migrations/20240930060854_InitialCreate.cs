@@ -124,25 +124,6 @@ namespace FromSingapore.Migrations.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "SubscriptionPlans",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    BuiltIn = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Duration = table.Column<TimeSpan>(type: "time(6)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubscriptionPlans", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -161,6 +142,26 @@ namespace FromSingapore.Migrations.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AppUserStripeCustomers",
+                columns: table => new
+                {
+                    StripeCustomerId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AppUserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUserStripeCustomers", x => x.StripeCustomerId);
+                    table.ForeignKey(
+                        name: "FK_AppUserStripeCustomers_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -268,9 +269,10 @@ namespace FromSingapore.Migrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    AppUserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    AppUserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    PlanId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    StripeSubscriptionId = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -357,36 +359,25 @@ namespace FromSingapore.Migrations.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "DomainSubscriptionPlans",
+                name: "PaidDomains",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    SubscriptionId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DomainSubscriptionPlans", x => x.Id);
+                    table.PrimaryKey("PK_PaidDomains", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DomainSubscriptionPlans_SubscriptionPlans_Id",
+                        name: "FK_PaidDomains_Domains_Id",
                         column: x => x.Id,
-                        principalTable: "SubscriptionPlans",
+                        principalTable: "Domains",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "LinkSubscriptionPlans",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LinkSubscriptionPlans", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LinkSubscriptionPlans_SubscriptionPlans_Id",
-                        column: x => x.Id,
-                        principalTable: "SubscriptionPlans",
+                        name: "FK_PaidDomains_Subscriptions_SubscriptionId",
+                        column: x => x.SubscriptionId,
+                        principalTable: "Subscriptions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -412,81 +403,6 @@ namespace FromSingapore.Migrations.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "DomainSubscriptions",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    DomainSubscriptionPlanId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DomainSubscriptions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DomainSubscriptions_DomainSubscriptionPlans_DomainSubscripti~",
-                        column: x => x.DomainSubscriptionPlanId,
-                        principalTable: "DomainSubscriptionPlans",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DomainSubscriptions_Subscriptions_Id",
-                        column: x => x.Id,
-                        principalTable: "Subscriptions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "LinkSubscriptions",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    LinkSubscriptionPlanId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LinkSubscriptions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_LinkSubscriptions_LinkSubscriptionPlans_LinkSubscriptionPlan~",
-                        column: x => x.LinkSubscriptionPlanId,
-                        principalTable: "LinkSubscriptionPlans",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_LinkSubscriptions_Subscriptions_Id",
-                        column: x => x.Id,
-                        principalTable: "Subscriptions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "PaidDomains",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    DomainSubscriptionId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PaidDomains", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PaidDomains_DomainSubscriptions_DomainSubscriptionId",
-                        column: x => x.DomainSubscriptionId,
-                        principalTable: "DomainSubscriptions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PaidDomains_Domains_Id",
-                        column: x => x.Id,
-                        principalTable: "Domains",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.InsertData(
                 table: "Domains",
                 columns: new[] { "Id", "Description", "Name" },
@@ -496,6 +412,11 @@ namespace FromSingapore.Migrations.Migrations
                 table: "FreeDomains",
                 column: "Id",
                 value: new Guid("04569f15-7a77-4cf3-8477-6b37a1c1fe01"));
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppUserStripeCustomers_AppUserId",
+                table: "AppUserStripeCustomers",
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -535,11 +456,6 @@ namespace FromSingapore.Migrations.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_DomainSubscriptions_DomainSubscriptionPlanId",
-                table: "DomainSubscriptions",
-                column: "DomainSubscriptionPlanId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Links_AppUserId",
                 table: "Links",
                 column: "AppUserId");
@@ -566,19 +482,14 @@ namespace FromSingapore.Migrations.Migrations
                 column: "LinkVisitLimitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LinkSubscriptions_LinkSubscriptionPlanId",
-                table: "LinkSubscriptions",
-                column: "LinkSubscriptionPlanId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LinkVisits_LinkId",
                 table: "LinkVisits",
                 column: "LinkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PaidDomains_DomainSubscriptionId",
+                name: "IX_PaidDomains_SubscriptionId",
                 table: "PaidDomains",
-                column: "DomainSubscriptionId");
+                column: "SubscriptionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subscriptions_AppUserId",
@@ -589,6 +500,9 @@ namespace FromSingapore.Migrations.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AppUserStripeCustomers");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -608,9 +522,6 @@ namespace FromSingapore.Migrations.Migrations
                 name: "FreeDomains");
 
             migrationBuilder.DropTable(
-                name: "LinkSubscriptions");
-
-            migrationBuilder.DropTable(
                 name: "LinkVisits");
 
             migrationBuilder.DropTable(
@@ -620,13 +531,10 @@ namespace FromSingapore.Migrations.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "LinkSubscriptionPlans");
-
-            migrationBuilder.DropTable(
                 name: "Links");
 
             migrationBuilder.DropTable(
-                name: "DomainSubscriptions");
+                name: "Subscriptions");
 
             migrationBuilder.DropTable(
                 name: "Domains");
@@ -639,15 +547,6 @@ namespace FromSingapore.Migrations.Migrations
 
             migrationBuilder.DropTable(
                 name: "LinkVisitLimits");
-
-            migrationBuilder.DropTable(
-                name: "DomainSubscriptionPlans");
-
-            migrationBuilder.DropTable(
-                name: "Subscriptions");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionPlans");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

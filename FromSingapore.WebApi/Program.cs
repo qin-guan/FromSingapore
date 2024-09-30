@@ -3,14 +3,16 @@ using FastEndpoints.ClientGen.Kiota;
 using FastEndpoints.Swagger;
 using FromSingapore.Core.Context;
 using FromSingapore.Core.Entities;
+using FromSingapore.WebApi.Extensions;
 using Kiota.Builder;
 using Microsoft.EntityFrameworkCore;
-using MySqlConnector;
-using Polly;
-using Polly.Registry;
-using Polly.Retry;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
+
+StripeConfiguration.ApiKey = builder.Configuration
+    .GetRequiredSection("Stripe")
+    .GetValue<string>("ApiKey");
 
 builder.Services.AddCors(options => { options.AddDefaultPolicy(policy => { }); });
 builder.Services.AddFastEndpoints();
@@ -97,7 +99,7 @@ if (app.Environment.IsProduction())
 
 app.UseFastEndpoints();
 
-app.MapIdentityApi<AppUser>();
+app.MapCustomIdentityApi<AppUser>();
 
 await app.GenerateApiClientsAndExitAsync(c =>
 {

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FromSingapore.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240925134423_InitialCreate")]
+    [Migration("20240930060854_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -115,6 +115,21 @@ namespace FromSingapore.Migrations.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("FromSingapore.Core.Entities.AppUserStripeCustomer", b =>
+                {
+                    b.Property<string>("StripeCustomerId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("StripeCustomerId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("AppUserStripeCustomers");
                 });
 
             modelBuilder.Entity("FromSingapore.Core.Entities.Domain", b =>
@@ -268,49 +283,18 @@ namespace FromSingapore.Migrations.Migrations
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<Guid>("PlanId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("StripeSubscriptionId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
                     b.ToTable("Subscriptions");
-
-                    b.UseTptMappingStrategy();
-                });
-
-            modelBuilder.Entity("FromSingapore.Core.Entities.SubscriptionPlan", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<bool>("BuiltIn")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time(6)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SubscriptionPlans");
-
-                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -435,50 +419,23 @@ namespace FromSingapore.Migrations.Migrations
                 {
                     b.HasBaseType("FromSingapore.Core.Entities.Domain");
 
-                    b.Property<Guid>("DomainSubscriptionId")
+                    b.Property<Guid>("SubscriptionId")
                         .HasColumnType("char(36)");
 
-                    b.HasIndex("DomainSubscriptionId");
+                    b.HasIndex("SubscriptionId");
 
                     b.ToTable("PaidDomains");
                 });
 
-            modelBuilder.Entity("FromSingapore.Core.Entities.DomainSubscription", b =>
+            modelBuilder.Entity("FromSingapore.Core.Entities.AppUserStripeCustomer", b =>
                 {
-                    b.HasBaseType("FromSingapore.Core.Entities.Subscription");
+                    b.HasOne("FromSingapore.Core.Entities.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<Guid>("DomainSubscriptionPlanId")
-                        .HasColumnType("char(36)");
-
-                    b.HasIndex("DomainSubscriptionPlanId");
-
-                    b.ToTable("DomainSubscriptions");
-                });
-
-            modelBuilder.Entity("FromSingapore.Core.Entities.LinkSubscription", b =>
-                {
-                    b.HasBaseType("FromSingapore.Core.Entities.Subscription");
-
-                    b.Property<Guid>("LinkSubscriptionPlanId")
-                        .HasColumnType("char(36)");
-
-                    b.HasIndex("LinkSubscriptionPlanId");
-
-                    b.ToTable("LinkSubscriptions");
-                });
-
-            modelBuilder.Entity("FromSingapore.Core.Entities.DomainSubscriptionPlan", b =>
-                {
-                    b.HasBaseType("FromSingapore.Core.Entities.SubscriptionPlan");
-
-                    b.ToTable("DomainSubscriptionPlans");
-                });
-
-            modelBuilder.Entity("FromSingapore.Core.Entities.LinkSubscriptionPlan", b =>
-                {
-                    b.HasBaseType("FromSingapore.Core.Entities.SubscriptionPlan");
-
-                    b.ToTable("LinkSubscriptionPlans");
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("FromSingapore.Core.Entities.Link", b =>
@@ -602,71 +559,19 @@ namespace FromSingapore.Migrations.Migrations
 
             modelBuilder.Entity("FromSingapore.Core.Entities.PaidDomain", b =>
                 {
-                    b.HasOne("FromSingapore.Core.Entities.DomainSubscription", "DomainSubscription")
-                        .WithMany()
-                        .HasForeignKey("DomainSubscriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FromSingapore.Core.Entities.Domain", null)
                         .WithOne()
                         .HasForeignKey("FromSingapore.Core.Entities.PaidDomain", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DomainSubscription");
-                });
-
-            modelBuilder.Entity("FromSingapore.Core.Entities.DomainSubscription", b =>
-                {
-                    b.HasOne("FromSingapore.Core.Entities.DomainSubscriptionPlan", "DomainSubscriptionPlan")
-                        .WithMany("DomainSubscriptions")
-                        .HasForeignKey("DomainSubscriptionPlanId")
+                    b.HasOne("FromSingapore.Core.Entities.Subscription", "Subscription")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FromSingapore.Core.Entities.Subscription", null)
-                        .WithOne()
-                        .HasForeignKey("FromSingapore.Core.Entities.DomainSubscription", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DomainSubscriptionPlan");
-                });
-
-            modelBuilder.Entity("FromSingapore.Core.Entities.LinkSubscription", b =>
-                {
-                    b.HasOne("FromSingapore.Core.Entities.Subscription", null)
-                        .WithOne()
-                        .HasForeignKey("FromSingapore.Core.Entities.LinkSubscription", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FromSingapore.Core.Entities.LinkSubscriptionPlan", "LinkSubscriptionPlan")
-                        .WithMany("LinkSubscriptions")
-                        .HasForeignKey("LinkSubscriptionPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LinkSubscriptionPlan");
-                });
-
-            modelBuilder.Entity("FromSingapore.Core.Entities.DomainSubscriptionPlan", b =>
-                {
-                    b.HasOne("FromSingapore.Core.Entities.SubscriptionPlan", null)
-                        .WithOne()
-                        .HasForeignKey("FromSingapore.Core.Entities.DomainSubscriptionPlan", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FromSingapore.Core.Entities.LinkSubscriptionPlan", b =>
-                {
-                    b.HasOne("FromSingapore.Core.Entities.SubscriptionPlan", null)
-                        .WithOne()
-                        .HasForeignKey("FromSingapore.Core.Entities.LinkSubscriptionPlan", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Subscription");
                 });
 
             modelBuilder.Entity("FromSingapore.Core.Entities.AppUser", b =>
@@ -682,16 +587,6 @@ namespace FromSingapore.Migrations.Migrations
             modelBuilder.Entity("FromSingapore.Core.Entities.Link", b =>
                 {
                     b.Navigation("LinkVisits");
-                });
-
-            modelBuilder.Entity("FromSingapore.Core.Entities.DomainSubscriptionPlan", b =>
-                {
-                    b.Navigation("DomainSubscriptions");
-                });
-
-            modelBuilder.Entity("FromSingapore.Core.Entities.LinkSubscriptionPlan", b =>
-                {
-                    b.Navigation("LinkSubscriptions");
                 });
 #pragma warning restore 612, 618
         }

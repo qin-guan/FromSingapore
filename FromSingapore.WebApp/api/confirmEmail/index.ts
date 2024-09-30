@@ -27,7 +27,7 @@ export interface ConfirmEmailRequestBuilderGetQueryParameters {
 /**
  * Uri template for the request builder.
  */
-export const ConfirmEmailRequestBuilderUriTemplate = "{+baseurl}/confirmEmail{?changedEmail*,code*,userId*}";
+export const ConfirmEmailRequestBuilderUriTemplate = "{+baseurl}/confirmEmail?code={code}&userId={userId}{&changedEmail*}";
 /**
  * Metadata for all the requests in the request builder.
  */

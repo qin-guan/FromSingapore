@@ -4,15 +4,19 @@
 // @ts-ignore
 import { ConfirmEmailRequestBuilderRequestsMetadata, type ConfirmEmailRequestBuilder } from './confirmEmail/index.js';
 // @ts-ignore
-import { DomainRequestBuilderRequestsMetadata, type DomainRequestBuilder } from './domain/index.js';
+import { DomainRequestBuilderNavigationMetadata, DomainRequestBuilderRequestsMetadata, type DomainRequestBuilder } from './domain/index.js';
 // @ts-ignore
 import { ForgotPasswordRequestBuilderRequestsMetadata, type ForgotPasswordRequestBuilder } from './forgotPassword/index.js';
+// @ts-ignore
+import { type WithShortCodeItemRequestBuilder, WithShortCodeItemRequestBuilderRequestsMetadata } from './item/index.js';
 // @ts-ignore
 import { LinkRequestBuilderRequestsMetadata, type LinkRequestBuilder } from './link/index.js';
 // @ts-ignore
 import { LoginRequestBuilderRequestsMetadata, type LoginRequestBuilder } from './login/index.js';
 // @ts-ignore
 import { ManageRequestBuilderNavigationMetadata, type ManageRequestBuilder } from './manage/index.js';
+// @ts-ignore
+import { PlanRequestBuilderRequestsMetadata, type PlanRequestBuilder } from './plan/index.js';
 // @ts-ignore
 import { RefreshRequestBuilderRequestsMetadata, type RefreshRequestBuilder } from './refresh/index.js';
 // @ts-ignore
@@ -21,6 +25,8 @@ import { RegisterRequestBuilderRequestsMetadata, type RegisterRequestBuilder } f
 import { ResendConfirmationEmailRequestBuilderRequestsMetadata, type ResendConfirmationEmailRequestBuilder } from './resendConfirmationEmail/index.js';
 // @ts-ignore
 import { ResetPasswordRequestBuilderRequestsMetadata, type ResetPasswordRequestBuilder } from './resetPassword/index.js';
+// @ts-ignore
+import { type UserRequestBuilder, UserRequestBuilderNavigationMetadata } from './user/index.js';
 // @ts-ignore
 import { apiClientProxifier, registerDefaultDeserializer, registerDefaultSerializer, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type RequestAdapter } from '@microsoft/kiota-abstractions';
 // @ts-ignore
@@ -61,6 +67,10 @@ export interface ApiClient extends BaseRequestBuilder<ApiClient> {
      */
     get manage(): ManageRequestBuilder;
     /**
+     * The Plan property
+     */
+    get plan(): PlanRequestBuilder;
+    /**
      * The refresh property
      */
     get refresh(): RefreshRequestBuilder;
@@ -76,6 +86,16 @@ export interface ApiClient extends BaseRequestBuilder<ApiClient> {
      * The resetPassword property
      */
     get resetPassword(): ResetPasswordRequestBuilder;
+    /**
+     * The User property
+     */
+    get user(): UserRequestBuilder;
+    /**
+     * Gets an item from the ApiSdk.item collection
+     * @param shortCode Unique identifier of the item
+     * @returns {WithShortCodeItemRequestBuilder}
+     */
+     byShortCode(shortCode: string) : WithShortCodeItemRequestBuilder;
 }
 /**
  * Instantiates a new {@link ApiClient} and sets the default values.
@@ -103,11 +123,16 @@ export const ApiClientUriTemplate = "{+baseurl}";
  * Metadata for all the navigation properties in the request builder.
  */
 export const ApiClientNavigationMetadata: Record<Exclude<keyof ApiClient, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    byShortCode: {
+        requestsMetadata: WithShortCodeItemRequestBuilderRequestsMetadata,
+        pathParametersMappings: ["ShortCode"],
+    },
     confirmEmail: {
         requestsMetadata: ConfirmEmailRequestBuilderRequestsMetadata,
     },
     domain: {
         requestsMetadata: DomainRequestBuilderRequestsMetadata,
+        navigationMetadata: DomainRequestBuilderNavigationMetadata,
     },
     forgotPassword: {
         requestsMetadata: ForgotPasswordRequestBuilderRequestsMetadata,
@@ -121,6 +146,9 @@ export const ApiClientNavigationMetadata: Record<Exclude<keyof ApiClient, KeysTo
     manage: {
         navigationMetadata: ManageRequestBuilderNavigationMetadata,
     },
+    plan: {
+        requestsMetadata: PlanRequestBuilderRequestsMetadata,
+    },
     refresh: {
         requestsMetadata: RefreshRequestBuilderRequestsMetadata,
     },
@@ -132,6 +160,9 @@ export const ApiClientNavigationMetadata: Record<Exclude<keyof ApiClient, KeysTo
     },
     resetPassword: {
         requestsMetadata: ResetPasswordRequestBuilderRequestsMetadata,
+    },
+    user: {
+        navigationMetadata: UserRequestBuilderNavigationMetadata,
     },
 };
 /* tslint:enable */

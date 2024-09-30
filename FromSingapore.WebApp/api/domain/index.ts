@@ -4,12 +4,20 @@
 // @ts-ignore
 import { createFromSingaporeWebApiEndpointsDomainListDomainsResponseFromDiscriminatorValue, type FromSingaporeWebApiEndpointsDomainListDomainsResponse } from '../models/index.js';
 // @ts-ignore
-import { type BaseRequestBuilder, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
+import { type WithNameItemRequestBuilder, WithNameItemRequestBuilderRequestsMetadata } from './item/index.js';
+// @ts-ignore
+import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
 /**
  * Builds and executes requests for operations under /Domain
  */
 export interface DomainRequestBuilder extends BaseRequestBuilder<DomainRequestBuilder> {
+    /**
+     * Gets an item from the ApiSdk.Domain.item collection
+     * @param name Unique identifier of the item
+     * @returns {WithNameItemRequestBuilder}
+     */
+     byName(name: string) : WithNameItemRequestBuilder;
     /**
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<FromSingaporeWebApiEndpointsDomainListDomainsResponse>}
@@ -25,6 +33,15 @@ export interface DomainRequestBuilder extends BaseRequestBuilder<DomainRequestBu
  * Uri template for the request builder.
  */
 export const DomainRequestBuilderUriTemplate = "{+baseurl}/Domain";
+/**
+ * Metadata for all the navigation properties in the request builder.
+ */
+export const DomainRequestBuilderNavigationMetadata: Record<Exclude<keyof DomainRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
+    byName: {
+        requestsMetadata: WithNameItemRequestBuilderRequestsMetadata,
+        pathParametersMappings: ["Name"],
+    },
+};
 /**
  * Metadata for all the requests in the request builder.
  */

@@ -2,6 +2,6 @@ namespace FromSingapore.Core.Entities;
 
 public class PaidDomain : Domain
 {
-    public Guid DomainSubscriptionId { get; set; }
-    public DomainSubscription DomainSubscription { get; set; }
+    public Guid SubscriptionId { get; set; }
+    public Subscription Subscription { get; set; }
 }

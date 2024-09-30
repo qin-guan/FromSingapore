@@ -6,6 +6,8 @@ namespace FromSingapore.Core.Context;
 
 public partial class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
 {
+    public DbSet<AppUserStripeCustomer> AppUserStripeCustomers { get; set; }
+
     // Domains
     public DbSet<Domain> Domains { get; set; }
     public DbSet<FreeDomain> FreeDomains { get; set; }
@@ -14,7 +16,7 @@ public partial class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     // Links
     public DbSet<Link> Links { get; set; }
     public DbSet<LinkVisit> LinkVisits { get; set; }
-    
+
     // Link configurations
     public DbSet<LinkExpiration> LinkExpirations { get; set; }
     public DbSet<LinkVisitLimit> LinkVisitLimits { get; set; }
@@ -22,11 +24,6 @@ public partial class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
 
     // Subscriptions
     public DbSet<Subscription> Subscriptions { get; set; }
-    public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
-    public DbSet<DomainSubscription> DomainSubscriptions { get; set; }
-    public DbSet<DomainSubscriptionPlan> DomainSubscriptionPlans { get; set; }
-    public DbSet<LinkSubscription> LinkSubscriptions { get; set; }
-    public DbSet<LinkSubscriptionPlan> LinkSubscriptionPlans { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
@@ -38,12 +35,6 @@ public partial class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Domain>()
-            .UseTptMappingStrategy();
-
-        modelBuilder.Entity<Subscription>()
-            .UseTptMappingStrategy();
-
-        modelBuilder.Entity<SubscriptionPlan>()
             .UseTptMappingStrategy();
 
         var fromSgDomain = new FreeDomain

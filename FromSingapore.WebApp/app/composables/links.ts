@@ -9,6 +9,15 @@ export function useLinks() {
   })
 }
 
+export function useLink(id: MaybeRef<string>) {
+  const { $api } = useNuxtApp()
+
+  // return useQuery({
+  //   queryKey: ['links'],
+  //   queryFn: async () => await $api.link[toValue(id)]
+  // })
+}
+
 export function useCreateLinkMutation() {
   const { $api } = useNuxtApp()
   const queryClient = useQueryClient()

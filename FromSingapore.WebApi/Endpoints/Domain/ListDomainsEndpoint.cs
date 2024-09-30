@@ -1,7 +1,6 @@
 using FastEndpoints;
 using FromSingapore.Core.Context;
 using FromSingapore.Core.Entities;
-using FromSingapore.WebApi.Endpoints.Link;
 using FromSingapore.WebApi.Extensions;
 using FromSingapore.WebApi.Mappers;
 using Microsoft.EntityFrameworkCore;
@@ -24,8 +23,8 @@ public class ListDomainsEndpoint(AppDbContext dbContext) : EndpointWithoutReques
         ArgumentNullException.ThrowIfNull(user);
 
         var domains = await dbContext.Domains
-            .Include(d => ((PaidDomain)d).DomainSubscription)
-            .Where(d => d is FreeDomain || (d is PaidDomain && ((PaidDomain)d).DomainSubscription.AppUserId == user.Id))
+            .Include(d => ((PaidDomain)d).Subscription)
+            .Where(d => d is FreeDomain || (d is PaidDomain && ((PaidDomain)d).Subscription.AppUserId == user.Id))
             .ToListAsync(cancellationToken: ct);
 
         await SendAsync(new ListDomainsResponse(domains.ToDto()), cancellation: ct);

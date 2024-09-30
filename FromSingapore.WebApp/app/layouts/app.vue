@@ -11,6 +11,8 @@ const links = ref([
     to: '/app/domains'
   },
 ])
+
+useWhoAmI()
 </script>
 
 <template>

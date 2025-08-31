@@ -26,6 +26,8 @@ import { ResendConfirmationEmailRequestBuilderRequestsMetadata, type ResendConfi
 // @ts-ignore
 import { ResetPasswordRequestBuilderRequestsMetadata, type ResetPasswordRequestBuilder } from './resetPassword/index.js';
 // @ts-ignore
+import { StripeRequestBuilderNavigationMetadata, type StripeRequestBuilder } from './stripe/index.js';
+// @ts-ignore
 import { type UserRequestBuilder, UserRequestBuilderNavigationMetadata } from './user/index.js';
 // @ts-ignore
 import { apiClientProxifier, registerDefaultDeserializer, registerDefaultSerializer, type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type RequestAdapter } from '@microsoft/kiota-abstractions';
@@ -86,6 +88,10 @@ export interface ApiClient extends BaseRequestBuilder<ApiClient> {
      * The resetPassword property
      */
     get resetPassword(): ResetPasswordRequestBuilder;
+    /**
+     * The Stripe property
+     */
+    get stripe(): StripeRequestBuilder;
     /**
      * The User property
      */
@@ -160,6 +166,9 @@ export const ApiClientNavigationMetadata: Record<Exclude<keyof ApiClient, KeysTo
     },
     resetPassword: {
         requestsMetadata: ResetPasswordRequestBuilderRequestsMetadata,
+    },
+    stripe: {
+        navigationMetadata: StripeRequestBuilderNavigationMetadata,
     },
     user: {
         navigationMetadata: UserRequestBuilderNavigationMetadata,

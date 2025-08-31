@@ -17,7 +17,7 @@ public record SubscriptionDto
     /// Populate from Plan manually
     /// </summary>
     [MapperIgnore]
-    public PlanFeaturesDto Features { get; set; }
+    public _PlanFeaturesDto Features { get; set; }
 
     /// <summary>
     /// Populate from Stripe APi
@@ -31,7 +31,7 @@ public record SubscriptionDto
     [MapperIgnore]
     public decimal PriceAmount { get; set; }
 
-    public record PlanFeaturesDto(
+    public record _PlanFeaturesDto(
         int DomainsAvailable,
         int DomainsRemaining
     );

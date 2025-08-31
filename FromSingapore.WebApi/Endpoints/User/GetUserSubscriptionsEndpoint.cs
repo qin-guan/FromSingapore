@@ -1,4 +1,3 @@
-using System.Text.Json;
 using FastEndpoints;
 using FromSingapore.Core.Context;
 using FromSingapore.Core.StaticStore;
@@ -49,7 +48,7 @@ public class GetUserSubscriptionsEndpoint(AppDbContext dbContext) : EndpointWith
         var stripeSubscription =
             await new SubscriptionService().GetAsync(subscription.StripeSubscriptionId, cancellationToken: ct);
 
-        dto.Features = new SubscriptionDto.PlanFeaturesDto(
+        dto.Features = new SubscriptionDto._PlanFeaturesDto(
             plan.Features.DomainsAvailable,
             await dbContext.PaidDomains.CountAsync(d => d.SubscriptionId == subscription.Id, ct)
         );

@@ -106,6 +106,15 @@ export function createFromSingaporeWebApiEndpointsPlanListPlansResponseFromDiscr
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {FromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponse}
+ */
+// @ts-ignore
+export function createFromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoFromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponse;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {FromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse}
  */
 // @ts-ignore
@@ -376,6 +385,16 @@ export function deserializeIntoFromSingaporeWebApiEndpointsLinkListLinksResponse
 export function deserializeIntoFromSingaporeWebApiEndpointsPlanListPlansResponse(fromSingaporeWebApiEndpointsPlanListPlansResponse: Partial<FromSingaporeWebApiEndpointsPlanListPlansResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "plans": n => { fromSingaporeWebApiEndpointsPlanListPlansResponse.plans = n.getCollectionOfObjectValues<FromSingaporeWebApiDtosPlanDto>(createFromSingaporeWebApiDtosPlanDtoFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoFromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponse(fromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponse: Partial<FromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "checkoutUri": n => { fromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponse.checkoutUri = n.getStringValue(); },
     }
 }
 /**
@@ -739,6 +758,12 @@ export interface FromSingaporeWebApiEndpointsPlanListPlansResponse extends Parsa
      */
     plans?: FromSingaporeWebApiDtosPlanDto[];
 }
+export interface FromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponse extends Parsable {
+    /**
+     * The checkoutUri property
+     */
+    checkoutUri?: string;
+}
 export interface FromSingaporeWebApiEndpointsUserGetUserSubscriptionsResponse extends Parsable {
     /**
      * The subscription property
@@ -1050,6 +1075,14 @@ export function serializeFromSingaporeWebApiEndpointsLinkListLinksResponse(write
 // @ts-ignore
 export function serializeFromSingaporeWebApiEndpointsPlanListPlansResponse(writer: SerializationWriter, fromSingaporeWebApiEndpointsPlanListPlansResponse: Partial<FromSingaporeWebApiEndpointsPlanListPlansResponse> | undefined = {}) : void {
     writer.writeCollectionOfObjectValues<FromSingaporeWebApiDtosPlanDto>("plans", fromSingaporeWebApiEndpointsPlanListPlansResponse.plans, serializeFromSingaporeWebApiDtosPlanDto);
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeFromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponse(writer: SerializationWriter, fromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponse: Partial<FromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponse> | undefined = {}) : void {
+    writer.writeStringValue("checkoutUri", fromSingaporeWebApiEndpointsUserCreateUserSubscriptionResponse.checkoutUri);
 }
 /**
  * Serializes information the current object

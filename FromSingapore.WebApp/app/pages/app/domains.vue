@@ -23,7 +23,7 @@ function buyDomain() {
     return
   }
 
-
+  navigateTo(`/app/plans/${basePlan.value?.id}/subscribe`)
 }
 </script>
 
@@ -45,7 +45,7 @@ function buyDomain() {
           for ${{ basePlan?.priceAmount }}!
         </span>
 
-        <UButton>Buy</UButton>
+        <UButton @click="buyDomain">Buy</UButton>
       </div>
 
       <div v-else>

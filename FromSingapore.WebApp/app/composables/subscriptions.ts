@@ -11,3 +11,12 @@ export function useSubscription() {
     retry: false
   })
 }
+
+export function useCreateSubscription() {
+  const { $api } = useNuxtApp()
+  const { data: user } = useWhoAmI()
+
+  return useMutation({
+    mutationFn: async (data: { planId: MaybeRef<string> }) => await $api.user.byUserId(user.value?.id!).subscription.byPlanId(toValue(data.planId)).post(),
+  })
+}
